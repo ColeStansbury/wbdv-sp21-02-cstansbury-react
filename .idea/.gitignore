@@ -1,0 +1,10 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+# CodeStream ignored files
+/../../wbdv-sp21-02-cstansbury-react\.idea/codestream.xml
+# Datasource local storage ignored files
+/../../../../../../../../../../:\Users\Cole\OneDrive\Documents\School\3_MSCS\5610_WebDev\wbdv-sp21-02-cstansbury-react\.idea/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/
