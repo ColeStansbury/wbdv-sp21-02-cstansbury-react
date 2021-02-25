@@ -1,11 +1,11 @@
 import React from 'react'
-import CrudCard from "./crud-card";
+import CrudCard from "./course-card";
 import {Grid, Tooltip} from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import {Link} from "react-router-dom";
 import {FaTable } from "react-icons/fa";
 
-const CrudGrid = (props) =>
+const CourseGrid = (props) =>
     <div>
         <Grid
             spacing={2}
@@ -25,4 +25,4 @@ const CrudGrid = (props) =>
         </Grid>
     </div>
 
-export default CrudGrid
+export default CourseGrid

@@ -1,9 +1,8 @@
 import React from 'react'
-import CrudGrid from "../crud-util/grid/crud-grid";
 import CourseEditor from "./course-editor";
 import {Route, Link} from "react-router-dom";
 import courseService from "../../services/course-service";
-import {CrudTable} from "../crud-util/table/crud-table";
+import {CourseTable} from "./course-table";
 import Container from "@material-ui/core/Container";
 import {FaHome, FaPlus, FaTh} from "react-icons/all";
 import {makeStyles} from "@material-ui/core/styles";
@@ -11,6 +10,7 @@ import './course-manager.css'
 import {Input, Tooltip} from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import {FaTable} from "react-icons/fa";
+import CourseGrid from "./course-grid";
 
 const tableStyles = makeStyles(theme => ({
     root: {
@@ -89,7 +89,7 @@ class CourseManager extends React.Component {
                         ...prevState.courses,
                         course,
                     ],
-                    newCourseTitle:""
+                    newCourseTitle: ""
                 })))
     }
 
@@ -113,34 +113,38 @@ class CourseManager extends React.Component {
                 <Link to="/">
                     <FaHome size={30}/>
                 </Link>
+                <div className={"addCourseInput"}>
+                    <Input placeholder={"Add a course"} onChange={(e) =>
+                        this.setNewTitle(e.target.value)} value={this.state.newCourseTitle}/>
+                    <Tooltip title="Add Course">
+                        <IconButton color="primary" onClick={this.addCourse}>
+                            <FaPlus size={30}/>
+                        </IconButton>
+                    </Tooltip>
+                </div>
                 <h1>Course Manager</h1>
-                <Input placeholder={"Add a course"} onChange={(e) =>
-                    this.setNewTitle(e.target.value)} value={this.state.newCourseTitle}/>
-                <Tooltip title="Add Course">
-                    <IconButton color="primary" onClick={this.addCourse}>
-                        <FaPlus size={30}/>
-                    </IconButton>
-                </Tooltip>
                 <Route path="/courses/table">
                     <h2>Course Table</h2>
                     <Tooltip title="Grid view">
-                        <IconButton color={"primary"} component={Link} to="/courses/grid" aria-label="grid view">
-                                <FaTh size={30}/>
+                        <IconButton color={"primary"} component={Link} to="/courses/grid"
+                                    aria-label="grid view">
+                            <FaTh size={30}/>
                         </IconButton>
                     </Tooltip>
 
-                    <CrudTable columns={this.tableColumns} rows={this.state.courses}
-                               deleteRow={this.deleteCourse} updateRow={this.updateCourse}
-                               useStyles={tableStyles}/>
+                    <CourseTable columns={this.tableColumns} rows={this.state.courses}
+                                 deleteRow={this.deleteCourse} updateRow={this.updateCourse}
+                                 useStyles={tableStyles}/>
                 </Route>
                 <Route path="/courses/grid">
                     <h2>Course Grid</h2>
                     <Tooltip title="Table View">
-                        <IconButton aria-label="grid table" color={"primary"} component={Link} to="/courses/table" align={'right'}>
-                                <FaTable size={30}/>
+                        <IconButton aria-label="grid table" color={"primary"} component={Link}
+                                    to="/courses/table" align={'right'}>
+                            <FaTable size={30}/>
                         </IconButton>
                     </Tooltip>
-                    <CrudGrid
+                    <CourseGrid
                         deleteCard={this.deleteCourse} updateCard={this.updateCourse}
                         fields={this.tableColumns} cards={this.state.courses}/>
                 </Route>

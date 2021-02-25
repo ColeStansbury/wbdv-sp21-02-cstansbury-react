@@ -4,7 +4,7 @@ import {Input, TableCell, TableRow} from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import {Link} from "react-router-dom";
 
-const CrudRow = ({updateRow, deleteRow, row, columns, useStyles}) => {
+const CourseRow = ({updateRow, deleteRow, row, columns, useStyles}) => {
     const [editing, setEditing] = useState(false)
     const [newValues, setNewValue] = useState(row)
 
@@ -65,4 +65,4 @@ const CrudRow = ({updateRow, deleteRow, row, columns, useStyles}) => {
             </TableCell>
         </TableRow>)
 }
-export default CrudRow
+export default CourseRow

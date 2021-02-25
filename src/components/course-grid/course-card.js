@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function CrudCard({updateCard, deleteCard, card, fields}) {
+export default function CourseCard({updateCard, deleteCard, card, fields}) {
     const classes = useStyles();
     const [editing, setEditing] = useState(false);
     const [newValues, setNewValue] = useState(card)

@@ -1,5 +1,4 @@
 import React from 'react'
-import {makeStyles} from "@material-ui/core/styles";
 import {
     Paper,
     Table,
@@ -11,12 +10,9 @@ import {
     TableRow, Tooltip
 } from "@material-ui/core";
 
-import CrudRow from "./crud-row";
-import {Link, Route} from "react-router-dom";
-import {FaTh} from "react-icons/all";
-import IconButton from "@material-ui/core/IconButton";
+import CrudRow from "./course-row";
 
-export function CrudTable(props) {
+export function CourseTable(props) {
     const classes = props.useStyles();
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
