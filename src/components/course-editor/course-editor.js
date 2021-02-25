@@ -11,7 +11,6 @@ import {
 } from "@material-ui/core";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Typography from "@material-ui/core/Typography";
-import clsx from "clsx";
 
 const useStyles = makeStyles((theme) => ({
     root: {

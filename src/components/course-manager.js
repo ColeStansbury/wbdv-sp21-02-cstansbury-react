@@ -1,8 +1,8 @@
 import React from 'react'
-import CourseEditor from "./course-editor";
+import CourseEditor from "./course-editor/course-editor";
 import {Route, Link} from "react-router-dom";
-import courseService from "../../services/course-service";
-import {CourseTable} from "./course-table";
+import courseService from "../services/course-service";
+import {CourseTable} from "./course-table/course-table";
 import Container from "@material-ui/core/Container";
 import {FaHome, FaPlus, FaTh} from "react-icons/all";
 import {makeStyles} from "@material-ui/core/styles";
@@ -10,7 +10,7 @@ import './course-manager.css'
 import {Input, Tooltip} from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import {FaTable} from "react-icons/fa";
-import CourseGrid from "./course-grid";
+import CourseGrid from "./course-grid/course-grid";
 
 const tableStyles = makeStyles(theme => ({
     root: {

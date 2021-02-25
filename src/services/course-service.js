@@ -4,6 +4,10 @@ export const findAllCourses = () =>
     fetch(COURSES_URL)
         .then(response => response.json())
 
+export const findCourseById = (id) =>
+    fetch(`${COURSES_URL}/${id}`)
+        .then(response => response.json())
+
 export const deleteCourse = (courseId) =>
     fetch(`${COURSES_URL}/${courseId}`, {
         method: 'DELETE'

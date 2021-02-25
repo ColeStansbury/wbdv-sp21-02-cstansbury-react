@@ -1,4 +1,4 @@
-import CourseManager from "./components/courses/course-manager";
+import CourseManager from "./components/course-manager";
 import {BrowserRouter, Route} from "react-router-dom";
 import Home from "./components/home"
 
