@@ -44,7 +44,7 @@ export default function CourseCard({updateCard, deleteCard, card, fields}) {
                         return (<React.Fragment key={ndx}>{field.label}: {
                                 (!editing || field.readonly) &&
                                 <>{field.link ?
-                                   <Link to={field.link}>
+                                   <Link to={`${field.link}/${card._id}`}>
                                        {newValues[field.id]}
                                    </Link> : newValues[field.id]
                                 }</>

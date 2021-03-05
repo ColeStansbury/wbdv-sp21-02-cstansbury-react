@@ -1,6 +1,6 @@
 import React from 'react'
 import CourseEditor from "./course-editor/course-editor";
-import {Route, Link} from "react-router-dom";
+import {Route, Link, Redirect} from "react-router-dom";
 import courseService from "../services/course-service";
 import {CourseTable} from "./course-table/course-table";
 import Container from "@material-ui/core/Container";
@@ -72,7 +72,7 @@ class CourseManager extends React.Component {
 
     componentDidMount = () => {
         courseService.findAllCourses()
-            .then(courses => this.setState({courses}))
+            .then(courses => this.setState({courses}));
     }
 
     addCourse = () => {
@@ -148,9 +148,14 @@ class CourseManager extends React.Component {
                         deleteCard={this.deleteCourse} updateCard={this.updateCourse}
                         fields={this.tableColumns} cards={this.state.courses}/>
                 </Route>
-                <Route path="/courses/editor"
+                <Route path={[
+                    "/courses/editor/:courseId",
+                    "/courses/editor/:courseId/:moduleId",
+                    "/courses/editor/:courseId/:moduleId/:lessonId"]}
+                       exact={true}
                        render={(props) => <CourseEditor {...props}/>}>
                 </Route>
+                <Redirect from={"/courses/editor/"} to={"/courses/table"}/>
             </Container>
         )
     }

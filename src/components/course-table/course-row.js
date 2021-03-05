@@ -32,7 +32,7 @@ const CourseRow = ({updateRow, deleteRow, row, columns, useStyles}) => {
                                  {
                                      (!editing || column.readonly) &&
                                      <>{column.link ?
-                                        <Link to={column.link}>
+                                        <Link to={`${column.link}/${row._id}`}>
                                             {newValues[column.id]}
                                         </Link> : newValues[column.id]
                                      }</>
@@ -66,3 +66,14 @@ const CourseRow = ({updateRow, deleteRow, row, columns, useStyles}) => {
         </TableRow>)
 }
 export default CourseRow
+
+
+
+
+
+
+
+
+
+
+
