@@ -6,27 +6,24 @@ const initialState = {
     ]
 }
 
-const moduleReducer = (state=initialState, action) => {
+const moduleReducer = (state = initialState, action) => {
     switch (action.type) {
+        case "FIND_RELATED_COURSE":
+            return {...state, course: action.course}
         case "FIND_MODULES_FOR_COURSE":
             return {
                 ...state,
                 modules: action.modules
             }
         case "CREATE_MODULE":
-            const newState = {
+            return {
+                ...state,
                 modules: [
                     ...state.modules,
                     action.module
-                    // {
-                    //     title: "New Module",
-                    //     _id: (new Date()).getTime()
-                    // }
                 ]
             }
-            return newState
         case "DELETE_MODULE":
-            // alert("delete the module " + action.moduleToDelete.title)
             return {
                 modules: state.modules.filter(module => {
                     if (module._id === action.moduleToDelete._id) {
@@ -39,7 +36,7 @@ const moduleReducer = (state=initialState, action) => {
         case "UPDATE_MODULE":
             return {
                 modules: state.modules.map(m => {
-                    if(m._id === action.module._id) {
+                    if (m._id === action.module._id) {
                         return action.module
                     } else {
                         return m

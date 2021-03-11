@@ -9,7 +9,7 @@ function App() {
             <Route path="/" exact={true}>
                 <Home/>
             </Route>
-            <Route path="/courses">
+            <Route path="/courses/:layout">
                 <CourseManager/>
             </Route>
         </div>

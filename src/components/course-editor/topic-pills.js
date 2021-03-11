@@ -10,45 +10,41 @@ import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import {Divider} from "@material-ui/core";
 
-
 const useStyles = makeStyles({addLessonBtn: {width: '30px', flex: "none"}});
 
 const TopicPills = ({
+                        history,
                         topics,
                         findTopicsForLesson,
                         createTopicForLesson,
-                        updateTopicForLesson,
-                        deleteTopicFromLesson,
+                        updateTopic,
+                        deleteTopic,
                     }) => {
-    const {courseId, moduleId, lessonId} = useParams();
+    const {layout, courseId, moduleId, lessonId, topicId} = useParams();
     const classes = useStyles();
     useEffect(() => {
         if (lessonId !== "undefined" && typeof lessonId !== "undefined") {
             findTopicsForLesson(lessonId)
         }
     }, [findTopicsForLesson, lessonId, moduleId])
-    const [active, setActive] = useState();
-
-    const handleChange = (event, isActive) => {
-        setActive(isActive);
-    };
 
     return (moduleId && lessonId ?
             <>
                 <Divider/>
-                <BottomNavigation showLabels value={active} onChange={handleChange}
+                <BottomNavigation showLabels value={topics.findIndex(t => t._id === topicId)}
                                   className={classes.root}>
                     {
                         topics.map(topic =>
-                                        <BottomNavigationAction key={topic._id}
-                                                                icon={<EditableItem
-                                                                    active={topic._id === lessonId}
-                                                                    to={`/courses/editor/${courseId}/${moduleId}/${topic._id}`}
-                                                                    item={topic}
-                                                                    updateItem={updateTopicForLesson}
-                                                                    deleteItem={deleteTopicFromLesson}/>}
+                                       <BottomNavigationAction key={topic._id}
+                                                               onClick={() => history.replace(
+                                                                   `/courses/${layout}/edit/${courseId}/modules/${moduleId}/lessons/${lessonId}/topics/${topic._id}`)}
+                                                               icon={<EditableItem
+                                                                   active={topic._id === topicId}
+                                                                   item={topic}
+                                                                   updateItem={updateTopic}
+                                                                   deleteItem={deleteTopic}/>}
 
-                                        />)
+                                       />)
                     }
                     <BottomNavigationAction className={classes.addLessonBtn}
                                             onClick={() => createTopicForLesson(lessonId)}
@@ -64,9 +60,9 @@ const dtpm = (dispatch) => ({
     findTopicsForLesson: (lessonId) => {
         topicService.findTopicsForLesson(lessonId)
             .then(topics => dispatch({
-                                          type: "FIND_TOPICS",
-                                          topics
-                                      }))
+                                         type: "FIND_TOPICS",
+                                         topics
+                                     }))
     },
     createTopicForLesson: (lessonId) => {
         topicService
@@ -77,22 +73,22 @@ const dtpm = (dispatch) => ({
                                     }));
 
     },
-    updateTopicForLesson: (topic) => {
-        topicService.updateTopicForLesson(topic)
+    updateTopic: (topic) => {
+        topicService.updateTopic(topic)
             .then(() => dispatch({
                                      type: "UPDATE_TOPIC",
                                      topic,
                                  }));
     },
-    deleteTopicFromLesson: (topic) => {
+    deleteTopic: (topic) => {
         topicService
-            .deleteTopicFromLesson(topic._id)
+            .deleteTopic(topic._id)
             .then(() => dispatch({
                                      type: "DELETE_TOPIC",
                                      topicId: topic._id,
                                  }));
 
     },
-})
+});
 
-export default connect(stpm, dtpm)(TopicPills)
+export default connect(stpm, dtpm)(TopicPills);

@@ -1,6 +1,7 @@
 import React from 'react'
 import CourseEditor from "./course-editor/course-editor";
 import {Route, Link, Redirect} from "react-router-dom";
+import {withRouter} from "react-router";
 import courseService from "../services/course-service";
 import {CourseTable} from "./course-table/course-table";
 import Container from "@material-ui/core/Container";
@@ -37,19 +38,15 @@ const tableStyles = makeStyles(theme => ({
 class CourseManager extends React.Component {
     state = {
         courses: [],
+        editableFields: [],
         newCourseTitle: ""
     }
-
-    tableColumns = [
-        {id: "title", label: "Title", link: "/courses/editor", readonly: false},
-        {id: "owner", label: "Owner", classes: ['smDown'], readonly: false},
-        {id: "lastModified", label: "Last Modified", classes: ['mdDown'], readonly: true},
-    ]
 
     constructor(props, context) {
         super(props, context);
         this.addCourse = this.addCourse.bind(this);
         this.setNewTitle = this.setNewTitle.bind(this);
+        this.getFields = this.getFields.bind(this);
     }
 
     getCurrentDate() {
@@ -73,6 +70,20 @@ class CourseManager extends React.Component {
     componentDidMount = () => {
         courseService.findAllCourses()
             .then(courses => this.setState({courses}));
+    }
+
+    getFields = () => {
+        let layout = this.props.match.params.layout
+        return [
+            {
+                id: "title",
+                label: "Title",
+                link: `/courses/${layout}/edit`,
+                readonly: false
+            },
+            {id: "owner", label: "Owner", classes: ['smDown'], readonly: false},
+            {id: "lastModified", label: "Last Modified", classes: ['mdDown'], readonly: true}
+        ]
     }
 
     addCourse = () => {
@@ -123,43 +134,48 @@ class CourseManager extends React.Component {
                     </Tooltip>
                 </div>
                 <h1>Course Manager</h1>
-                <Route path="/courses/table">
+                <Route path="/courses/table" exact>
                     <h2>Course Table</h2>
                     <Tooltip title="Grid view">
-                        <IconButton color={"primary"} component={Link} to="/courses/grid"
+                        <IconButton color={"primary"} component={Link}
+                                    to="/courses/grid"
                                     aria-label="grid view">
                             <FaTh size={30}/>
                         </IconButton>
                     </Tooltip>
-
-                    <CourseTable columns={this.tableColumns} rows={this.state.courses}
-                                 deleteRow={this.deleteCourse} updateRow={this.updateCourse}
+                    <CourseTable getFields={this.getFields} rows={this.state.courses}
+                                 deleteRow={this.deleteCourse}
+                                 updateRow={this.updateCourse}
                                  useStyles={tableStyles}/>
                 </Route>
-                <Route path="/courses/grid">
+                <Route path="/courses/grid" exact>
                     <h2>Course Grid</h2>
                     <Tooltip title="Table View">
-                        <IconButton aria-label="grid table" color={"primary"} component={Link}
+                        <IconButton aria-label="grid table" color={"primary"}
+                                    component={Link}
                                     to="/courses/table" align={'right'}>
                             <FaTable size={30}/>
                         </IconButton>
                     </Tooltip>
                     <CourseGrid
                         deleteCard={this.deleteCourse} updateCard={this.updateCourse}
-                        fields={this.tableColumns} cards={this.state.courses}/>
+                        getFields={this.getFields} cards={this.state.courses}/>
                 </Route>
                 <Route path={[
-                    "/courses/editor/:courseId",
-                    "/courses/editor/:courseId/:moduleId",
-                    "/courses/editor/:courseId/:moduleId/:lessonId"]}
-                       exact={true}
-                       render={(props) => <CourseEditor {...props}/>}>
+                    "/courses/:layout/edit/:courseId",
+                    "/courses/:layout/edit/:courseId/modules",
+                    "/courses/:layout/edit/:courseId/modules/:moduleId",
+                    "/courses/:layout/edit/:courseId/modules/:moduleId/lessons",
+                    "/courses/:layout/edit/:courseId/modules/:moduleId/lessons/:lessonId",
+                    "/courses/:layout/edit/:courseId/modules/:moduleId/lessons/:lessonId/topics",
+                    "/courses/:layout/edit/:courseId/modules/:moduleId/lessons/:lessonId/topics/:topicId",
+                ]} exact
+                       render={(props) => <CourseEditor {...props} layout={this.layout}/>}>
                 </Route>
                 <Redirect from={"/courses/editor/"} to={"/courses/table"}/>
             </Container>
         )
     }
-
 }
 
-export default CourseManager
+export default withRouter(CourseManager)

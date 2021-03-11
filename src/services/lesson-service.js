@@ -14,8 +14,7 @@ export const findLessonsForModule = (moduleId) =>
     fetch(`${BASE_URL}/modules/${moduleId}/lessons`)
         .then(response => response.json());
 
-
-export const updateLessonForModule = (lesson) =>
+export const updateLesson = (lesson) =>
     fetch(`${BASE_URL}/lessons/${lesson._id}`, {
         method: "PUT",
         body: JSON.stringify(lesson),
@@ -25,14 +24,18 @@ export const updateLessonForModule = (lesson) =>
     })
         .then(response => response.json());
 
-export const deleteLessonFromModule = (lessonId) =>
+export const deleteLesson = (lessonId) =>
     fetch(`${BASE_URL}/lessons/${lessonId}`, {
         method: "DELETE"
     })
         .then(response => response.json());
 
-
+export const findLesson = (lessonId) =>
+    fetch(`${BASE_URL}/lessons/${lessonId}`, {
+        method: "GET"
+    })
+        .then(response => response.json());
 
 export default {
-    findLessonsForModule, createLessonForModule, updateLessonForModule,deleteLessonFromModule,
+    findLessonsForModule, createLessonForModule, updateLesson, deleteLesson, findLesson
 }

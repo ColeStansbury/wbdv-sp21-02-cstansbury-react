@@ -15,7 +15,7 @@ export const findTopicsForLesson = (lessonId) =>
         .then(response => response.json());
 
 
-export const updateTopicForLesson = (topic) =>
+export const updateTopic = (topic) =>
     fetch(`${BASE_URL}/topics/${topic._id}`, {
         method: "PUT",
         body: JSON.stringify(topic),
@@ -25,14 +25,18 @@ export const updateTopicForLesson = (topic) =>
     })
         .then(response => response.json());
 
-export const deleteTopicFromLesson = (topicId) =>
+export const deleteTopic = (topicId) =>
     fetch(`${BASE_URL}/topics/${topicId}`, {
         method: "DELETE"
     })
         .then(response => response.json());
 
-
+export const findTopic = (topicId) =>
+    fetch(`${BASE_URL}/topics/${topicId}`, {
+        method: "GET"
+    })
+        .then(response => response.json());
 
 export default {
-    findTopicsForLesson, createTopicForLesson, updateTopicForLesson,deleteTopicFromLesson,
+    findTopicsForLesson, createTopicForLesson, updateTopic,deleteTopic, findTopic
 }

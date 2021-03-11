@@ -33,7 +33,7 @@ export function CourseTable(props) {
                     <Table stickyHeader aria-label="sticky table">
                         <TableHead>
                             <TableRow>
-                                {props.columns.map((column) => (
+                                {props.getFields().map((column) => (
                                     <TableCell
                                         key={column.id}
                                         size={column.size}
@@ -56,7 +56,7 @@ export function CourseTable(props) {
                                     updateRow={props.updateRow}
                                     key={ndx}
                                     row={row}
-                                    columns={props.columns}
+                                    columns={props.getFields()}
                                     useStyles={props.useStyles}
                                 />)
                             }

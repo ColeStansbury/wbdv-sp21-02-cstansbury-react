@@ -1,8 +1,7 @@
-const COURSES_URL = "https://wbdv-generic-server.herokuapp.com/api/cstansbury/courses";
-const MODULES_URL = "https://wbdv-generic-server.herokuapp.com/api/cstansbury/modules";
+const BASE_URL = "https://wbdv-generic-server.herokuapp.com/api/cstansbury";
 
 export const createModuleForCourse = (courseId, module) =>
-    fetch(`${COURSES_URL}/${courseId}/modules`, {
+    fetch(`${BASE_URL}/courses/${courseId}/modules`, {
         method: "POST",
         body: JSON.stringify(module),
         headers: {
@@ -10,9 +9,12 @@ export const createModuleForCourse = (courseId, module) =>
         }
     })
         .then(response => response.json())
+export const findModulesForCourse = (courseId) =>
+    fetch(`${BASE_URL}/courses/${courseId}/modules`)
+        .then(response => response.json())
 
 export const updateModule = (module) =>
-    fetch(`${MODULES_URL}/${module._id}`, {
+    fetch(`${BASE_URL}/modules/${module._id}`, {
         method: "PUT",
         body: JSON.stringify(module),
         headers: {
@@ -21,19 +23,21 @@ export const updateModule = (module) =>
     })
         .then(response => response.json())
 
-export const findModulesForCourse = (courseId) =>
-    fetch(`${COURSES_URL}/${courseId}/modules`)
+export const deleteModule = (moduleId) =>
+    fetch(`${BASE_URL}/modules/${moduleId}`, {
+        method: "DELETE"
+    })
         .then(response => response.json())
 
-export const deleteModule = (moduleId) =>
-    fetch(`${MODULES_URL}/${moduleId}`, {
-        method: "DELETE"
+export const findModule = (moduleId) =>
+    fetch(`${BASE_URL}/modules/${moduleId}`, {
+        method: "GET"
     })
         .then(response => response.json())
 
 const api = {
     findModulesForCourse, createModuleForCourse,
-    deleteModule, updateModule
+    deleteModule, updateModule, findModule
 };
 
 export default api;

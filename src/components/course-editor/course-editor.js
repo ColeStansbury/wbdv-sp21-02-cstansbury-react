@@ -9,6 +9,7 @@ import LessonTabs from "./lesson-tabs";
 import {FaArrowLeft, FaTimes} from "react-icons/all";
 import {Container, Grid} from "@material-ui/core";
 import topicReducer from "../../reducers/topic-reducer";
+import TopicPills from "./topic-pills";
 
 const reducer = combineReducers({
                                     moduleReducer: moduleReducer,
@@ -18,24 +19,25 @@ const reducer = combineReducers({
 
 const store = createStore(reducer)
 
-const CourseEditor = ({history}) => {
-    const {courseId, moduleId} = useParams();
+const CourseEditor = (props) => {
+    const {layout} = useParams();
     return (
         <Provider store={store}>
             <Container>
                 <h2>
-                    <Link to="/courses/table">
+                    <Link to={`/courses/${layout}`}>
                         <FaArrowLeft/>
                     </Link>
                     Course Editor
-                    <FaTimes onClick={() => history.goBack()}/>
+                    <FaTimes onClick={() => props.history.replace(`/courses/${layout}`)}/>
                 </h2>
                 <Grid container>
                     <Grid item xs={4}>
-                        <ModuleList/>
+                        <ModuleList {...props}/>
                     </Grid>
                     <Grid item xs={8}>
-                        <LessonTabs/>
+                        <LessonTabs {...props}/>
+                        <TopicPills {...props}/>
                     </Grid>
                 </Grid>
             </Container>

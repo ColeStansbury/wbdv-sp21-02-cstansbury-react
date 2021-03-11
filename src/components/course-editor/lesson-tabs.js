@@ -9,53 +9,50 @@ import {makeStyles} from '@material-ui/core/styles';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import {Divider} from "@material-ui/core";
-import TopicPills from "./topic-pills";
 
-const useStyles = makeStyles({addLessonBtn:{width: '30px', flex: "none"}, });
+const useStyles = makeStyles({addLessonBtn: {width: '30px', flex: "none"},root:{alignItems:'start'}});
 
 const LessonTabs = ({
+                        history,
                         lessons,
                         findLessonsForModule,
                         createLessonForModule,
-                        updateLessonForModule,
-                        deleteLessonFromModule,
+                        updateLesson,
+                        deleteLesson,
                     }) => {
-    const {courseId, moduleId, lessonId} = useParams();
+    const {layout, courseId, moduleId, lessonId} = useParams();
     const classes = useStyles();
     useEffect(() => {
         if (moduleId !== "undefined" && typeof moduleId !== "undefined") {
             findLessonsForModule(moduleId)
         }
     }, [findLessonsForModule, moduleId])
-    const [active, setActive] = useState();
 
-    const handleChange = (event, isActive) => {
-        setActive(isActive);
-    };
 
     return (moduleId ?
-        <>
-            <h2>Lessons</h2>
-            <Divider/>
-            <BottomNavigation showLabels value={active} onChange={handleChange}
-                              className={classes.root}>
-                {
-                    lessons.map(lesson =>
-                                    <BottomNavigationAction key={lesson._id}
-                                                            icon={<EditableItem
-                                                                active={lesson._id === lessonId}
-                                                                to={`/courses/editor/${courseId}/${moduleId}/${lesson._id}`}
-                                                                item={lesson}
-                                                                updateItem={updateLessonForModule}
-                                                                deleteItem={deleteLessonFromModule}/>}
+            <>
+                <h2>Lessons</h2>
+                <Divider/>
+                <BottomNavigation showLabels value={lessons.findIndex(l => l._id === lessonId)}
+                                  className={classes.root}>
+                    {
+                        lessons.map(lesson =>
+                                        <BottomNavigationAction key={lesson._id}
+                                                                onClick={() => history.replace(
+                                                                    `/courses/${layout}/edit/${courseId}/modules/${moduleId}/lessons/${lesson._id}/topics/`)}
+                                                                icon={<EditableItem
+                                                                    active={lesson._id === lessonId}
+                                                                    item={lesson}
+                                                                    updateItem={updateLesson}
+                                                                    deleteItem={deleteLesson}/>}
 
-                                    />)
-                }
-                <BottomNavigationAction className={classes.addLessonBtn} onClick={() => createLessonForModule(moduleId)}
-                                        icon={<FaPlus/>}/>
-            </BottomNavigation>
-            <TopicPills/>
-        </> : <></>);
+                                        />)
+                    }
+                    <BottomNavigationAction className={classes.addLessonBtn}
+                                            onClick={() => createLessonForModule(moduleId)}
+                                            icon={<FaPlus/>}/>
+                </BottomNavigation>
+            </> : <></>);
 }
 
 const stpm = (state) => ({
@@ -78,20 +75,20 @@ const dtpm = (dispatch) => ({
                                      }));
 
     },
-    updateLessonForModule: (lesson) => {
-        lessonService.updateLessonForModule(lesson)
+    updateLesson: (lesson) => {
+        lessonService.updateLesson(lesson)
             .then(() => dispatch({
                                      type: "UPDATE_LESSON",
                                      lesson
                                  }));
     },
-    deleteLessonFromModule: (lesson) => {
+    deleteLesson: (lesson) => {
         lessonService
-            .deleteLessonFromModule(lesson._id)
+            .deleteLesson(lesson._id)
             .then(() => dispatch({
-                                         type: "DELETE_LESSON",
-                                         lessonId: lesson._id
-                                     }));
+                                     type: "DELETE_LESSON",
+                                     lessonId: lesson._id
+                                 }));
 
     },
 })

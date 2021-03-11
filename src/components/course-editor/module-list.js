@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import EditableItem from "./editable-item";
 import {useParams} from "react-router-dom";
 import moduleService from "../../services/module-service"
+import courseService from "../../services/course-service"
 import {FaPlus} from "react-icons/all";
 import {
     Divider,
@@ -19,20 +20,30 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ModuleList = (
-    {modules = [], createModule, deleteModule, updateModule, findModulesForCourse}) => {
-    const {courseId, moduleId} = useParams();
+    {
+        history,
+        modules = [],
+        createModule,
+        findModulesForCourse,
+        deleteModule,
+        updateModule,
+        course = {title: ""},
+        findCourse,
+    }) => {
+    const {layout, courseId} = useParams();
     const classes = useStyles();
     useEffect(() => {
         findModulesForCourse(courseId)
-    }, [courseId, findModulesForCourse])
-    const [itemSelected, setSelected] = useState(modules.map(()=>false));
+        findCourse(courseId)
+    }, [courseId, findModulesForCourse, findCourse])
+    const [itemSelected, setSelected] = useState(modules.map(() => false));
     const changeSelectedItem = (i) => setSelected(modules.map((m, j) => j === i));
     return (
         <div className={classes.root}>
             <div className={classes.toolbar}/>
             <div>
                 <h2>
-                    Modules
+                    Modules for {course.title}
                     <IconButton className={classes.newModuleBtn}
                                 onClick={() => createModule(courseId)}>
                         <FaPlus/>
@@ -42,9 +53,14 @@ const ModuleList = (
             <Divider/>
             <List>
                 {modules.map((module, i) => (
-                    <ListItem selected={itemSelected[i]} onClick={()=>changeSelectedItem(i)} button key={module._id}>
+                    <ListItem selected={itemSelected[i]}
+                              onClick={() => {
+                                  changeSelectedItem(i)
+                                  history.replace(
+                                      `/courses/${layout}/edit/${courseId}/modules/${module._id}/lessons/`)
+                              }} button key={module._id}
+                    >
                         <EditableItem
-                            to={`/courses/editor/${courseId}/${module._id}`}
                             updateItem={updateModule}
                             deleteItem={deleteModule}
                             active={true}
@@ -57,7 +73,8 @@ const ModuleList = (
 
 const stpm = (state) => {
     return {
-        modules: state.moduleReducer.modules
+        modules: state.moduleReducer.modules,
+        course: state.moduleReducer.course,
     }
 }
 const dtpm = (dispatch) => {
@@ -81,14 +98,17 @@ const dtpm = (dispatch) => {
                                              type: "UPDATE_MODULE",
                                              module
                                          })),
-        findModulesForCourse: (courseId) => {
-            // alert(courseId);
+        findModulesForCourse: (courseId) =>
             moduleService.findModulesForCourse(courseId)
                 .then(theModules => dispatch({
                                                  type: "FIND_MODULES_FOR_COURSE",
                                                  modules: theModules
-                                             }))
-        }
+                                             })),
+        findCourse: (courseId) =>
+            courseService.findCourseById(courseId)
+                .then(course => dispatch({
+                                             type: 'FIND_RELATED_COURSE', course
+                                         }))
     }
 }
 
