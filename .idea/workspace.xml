@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="653b1d2e-60fb-4048-81ec-dd44dd5cd044" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/course-editor/widgets/new-widget.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/course-editor/widgets/new-widget.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +47,7 @@
       <option name="presentableId" value="Default" />
       <updated>1616353741907</updated>
       <workItem from="1616353744266" duration="16000" />
-      <workItem from="1616353801315" duration="1381000" />
+      <workItem from="1616353801315" duration="2535000" />
     </task>
     <servers />
   </component>

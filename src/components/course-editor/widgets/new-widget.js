@@ -13,6 +13,10 @@ export const NewWidget = ({createWidgetForTopic}) => {
     const [newWidget, setNewWidget] = useState({type: 'HEADING'});
     const {topicId} = useParams();
 
+    const handleNewWidgetChange = (e) => {
+        setNewWidget({...newWidget, text: e.target.value})
+    }
+
     return (<>
             <h3>New Widget</h3>
             <select
@@ -34,9 +38,8 @@ export const NewWidget = ({createWidgetForTopic}) => {
             <label>Text:
                 {newWidget.type === 'HEADING' &&
                  <>
-                     <input className={classes.newWidget} defaultValue={newWidget.text}
-                            onChange={(e) =>
-                                setNewWidget({...newWidget, text: e.target.value})}/>
+                     <input className={classes.newWidget} value={newWidget.text}
+                            onChange={handleNewWidgetChange}/>
                      <br/>
                      <select className={classes.root}
                              onChange={(e) => setNewWidget(
@@ -55,7 +58,10 @@ export const NewWidget = ({createWidgetForTopic}) => {
                                setNewWidget({...newWidget, text: e.target.value})}/>
                 }
             </label>
-            <FaPlus onClick={() => createWidgetForTopic(topicId, newWidget)}/>
+            <FaPlus onClick={() => {
+                createWidgetForTopic(topicId, newWidget)
+                setNewWidget({text: '', size: 1, type: 'HEADING'});
+            }}/>
         </>
     );
 }
