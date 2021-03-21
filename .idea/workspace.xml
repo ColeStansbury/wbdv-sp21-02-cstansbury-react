@@ -2,20 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="653b1d2e-60fb-4048-81ec-dd44dd5cd044" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codestream.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/wbdv-sp21-02-cstansbury-react.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/course-editor/course-editor.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/course-editor/course-editor.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/course-editor/editable-item.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/course-editor/editable-item.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/course-editor/topic-pills.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/course-editor/topic-pills.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/course-grid/course-card.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/course-grid/course-card.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/course-table/course-row.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/course-table/course-row.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/reducers/modules-reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/modules-reducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +33,7 @@
       <option name="presentableId" value="Default" />
       <updated>1616353741907</updated>
       <workItem from="1616353744266" duration="16000" />
-      <workItem from="1616353801315" duration="352000" />
+      <workItem from="1616353801315" duration="1087000" />
     </task>
     <servers />
   </component>
