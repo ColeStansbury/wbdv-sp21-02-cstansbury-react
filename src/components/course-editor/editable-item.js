@@ -33,7 +33,7 @@ const EditableItem = (
                                               ...cachedItem,
                                               title: e.target.value
                                           })}
-                        value={cachedItem.title}
+                        defaultValue={cachedItem.title}
                         onKeyDown={
                             (e) => {
                                 if (e.key === "Enter") {

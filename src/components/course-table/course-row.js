@@ -45,7 +45,7 @@ const CourseRow = ({updateRow, deleteRow, row, columns, useStyles}) => {
                                          onKeyDown={
                                              (e) =>
                                                  e.key === "Enter" ? saveRow() : null}
-                                         value={newValues[column.id]}/>
+                                         defaultValue={newValues[column.id]}/>
                                  }
                              </TableCell>
             )

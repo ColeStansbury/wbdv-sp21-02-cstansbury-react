@@ -8,13 +8,17 @@ import ModuleList from "./module-list";
 import LessonTabs from "./lesson-tabs";
 import {FaArrowLeft, FaTimes} from "react-icons/all";
 import {Container, Grid} from "@material-ui/core";
-import topicReducer from "../../reducers/topic-reducer";
-import TopicPills from "./topic-pills";
+import topicReducer from '../../reducers/topic-reducer';
+import TopicPills from './topic-pills';
+import WidgetList from './widgets/widget-list';
+import widgetReducer from '../../reducers/widget-reducer';
 
 const reducer = combineReducers({
-                                    moduleReducer: moduleReducer,
-                                    lessonReducer: lessonReducer,
-                                    topicReducer: topicReducer,
+                                    moduleReducer,
+                                    lessonReducer,
+                                    topicReducer,
+                                    widgetReducer,
+
                                 })
 
 const store = createStore(reducer)
@@ -38,6 +42,7 @@ const CourseEditor = (props) => {
                     <Grid item xs={8}>
                         <LessonTabs {...props}/>
                         <TopicPills {...props}/>
+                        <WidgetList {...props}/>
                     </Grid>
                 </Grid>
             </Container>

@@ -57,7 +57,7 @@ export default function CourseCard({updateCard, deleteCard, card, fields}) {
                                         onKeyDown={
                                             (e) =>
                                                 e.key === "Enter" ? saveCard() : null}
-                                        value={newValues[field.id]}/>
+                                        defaultValue={newValues[field.id]}/>
 
                                 }<br/></React.Fragment>
                         )
