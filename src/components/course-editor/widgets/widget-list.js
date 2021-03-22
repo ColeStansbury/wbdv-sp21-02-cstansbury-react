@@ -85,7 +85,8 @@ const WidgetList = ({
                                               <HeadingWidget
                                                   changeEditingWidget={setEditingWidget}
                                                   editing={editingWidget.id === widget.id}
-                                                  widget={widget.id === editingWidget.id ? editingWidget : widget}/>
+                                                  widget={widget.id === editingWidget.id
+                                                          ? editingWidget : widget}/>
                                              }
                                              {
                                                  (widget.type === "PARAGRAPH" &&
@@ -96,7 +97,8 @@ const WidgetList = ({
                                                  <ParagraphWidget
                                                      changeEditingWidget={setEditingWidget}
                                                      editing={editingWidget.id === widget.id}
-                                                     widget={widget.id === editingWidget.id ? editingWidget : widget}/>
+                                                     widget={widget.id === editingWidget.id
+                                                             ? editingWidget : widget}/>
                                              }
                                          </div>
                          )
@@ -122,7 +124,7 @@ const dtpm = (dispatch) => (
                                           }));
         },
         createWidgetForTopic: (topicId, widget) => {
-            widget.size = 1;
+            widget.size = widget.size ? widget.size : 1;
             widgetService
                 .createWidgetForTopic(topicId, widget)
                 .then(widget => dispatch({

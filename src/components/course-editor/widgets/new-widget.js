@@ -17,6 +17,14 @@ export const NewWidget = ({createWidgetForTopic}) => {
         setNewWidget({...newWidget, text: e.target.value})
     }
 
+    const handleSizeChange = (e) => {
+        setNewWidget(
+            {...newWidget, size: e.target.selectedIndex})
+    }
+
+    const handleTextAreaChange = (e) => {
+        setNewWidget({...newWidget, text: e.target.value});
+    }
     return (<>
             <h3>New Widget</h3>
             <select
@@ -42,8 +50,7 @@ export const NewWidget = ({createWidgetForTopic}) => {
                             onChange={handleNewWidgetChange}/>
                      <br/>
                      <select className={classes.root}
-                             onChange={(e) => setNewWidget(
-                                 {...newWidget, size: e.target.selectedIndex})}
+                             onChange={handleSizeChange}
                              value={`Heading ${newWidget.size}`}>
                          {[1, 2, 3, 4, 5, 6].map(size =>
                                                      <option key={size}
@@ -54,8 +61,7 @@ export const NewWidget = ({createWidgetForTopic}) => {
                 }
                 {newWidget.type === 'PARAGRAPH' &&
                  <textarea className={classes.newWidget} defaultValue={newWidget.text}
-                           onChange={(e) =>
-                               setNewWidget({...newWidget, text: e.target.value})}/>
+                           onChange={handleTextAreaChange}/>
                 }
             </label>
             <FaPlus onClick={() => {

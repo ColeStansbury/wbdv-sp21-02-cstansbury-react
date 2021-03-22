@@ -8,6 +8,12 @@ const useStyles = makeStyles({
                              });
 const HeadingWidget = ({widget, editing, changeEditingWidget}) => {
     const classes = useStyles();
+
+    const handleSelectChange = (e) => {
+        changeEditingWidget(
+            {...widget, size: parseInt(e.target.value)});
+    }
+
     return (
         <>
             {
@@ -18,12 +24,11 @@ const HeadingWidget = ({widget, editing, changeEditingWidget}) => {
                                changeEditingWidget({...widget, text: e.target.value})}/>
                     <br/>
                     <select className={classes.root}
-                            onChange={(e) => changeEditingWidget(
-                                {...widget, size: e.target.value})}
-                            value={`Heading ${widget.size}`}>
+                            onChange={handleSelectChange}
+                            defaultValue={`Heading ${widget.size}`}>
                         {[1, 2, 3, 4, 5, 6].map(size =>
                                                     <option key={size}
-                                                            defaultValue={size}>Heading {size}</option>
+                                                            value={size}>Heading {size}</option>
                         )}
                     </select>
                 </>
@@ -31,6 +36,7 @@ const HeadingWidget = ({widget, editing, changeEditingWidget}) => {
             {
                 !editing &&
                 <>
+                    {console.log(widget)}
                     {widget.size === 1 && <h1 className={classes.root}>{widget.text}</h1>}
                     {widget.size === 2 && <h2 className={classes.root}>{widget.text}</h2>}
                     {widget.size === 3 && <h3 className={classes.root}>{widget.text}</h3>}
