@@ -36,7 +36,6 @@ const HeadingWidget = ({widget, editing, changeEditingWidget}) => {
             {
                 !editing &&
                 <>
-                    {console.log(widget)}
                     {widget.size === 1 && <h1 className={classes.root}>{widget.text}</h1>}
                     {widget.size === 2 && <h2 className={classes.root}>{widget.text}</h2>}
                     {widget.size === 3 && <h3 className={classes.root}>{widget.text}</h3>}

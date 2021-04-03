@@ -13,8 +13,14 @@ export const NewWidget = ({createWidgetForTopic}) => {
     const [newWidget, setNewWidget] = useState({type: 'HEADING'});
     const {topicId} = useParams();
 
-    const handleNewWidgetChange = (e) => {
-        setNewWidget({...newWidget, text: e.target.value})
+    const handleWidgetValueChange = (e, value) => {
+        newWidget[value] = e.target.value;
+        setNewWidget({...newWidget})
+    }
+
+    const handleOrderedChange = () => {
+        setNewWidget(
+            {...newWidget, ordered: !newWidget.ordered});
     }
 
     const handleSizeChange = (e) => {
@@ -22,9 +28,6 @@ export const NewWidget = ({createWidgetForTopic}) => {
             {...newWidget, size: e.target.selectedIndex})
     }
 
-    const handleTextAreaChange = (e) => {
-        setNewWidget({...newWidget, text: e.target.value});
-    }
     return (<>
             <h3>New Widget</h3>
             <select
@@ -34,20 +37,20 @@ export const NewWidget = ({createWidgetForTopic}) => {
                     )
                 }
                 value={newWidget.type}>
-                {["PARAGRAPH", "HEADING"].map(type =>
-                                                  <option key={type}
-                                                          value={type}>{type[0] +
-                                                                        type.substr(1,
-                                                                                    type.length)
-                                                                            .toLowerCase()}</option>
+                {["PARAGRAPH", "HEADING", "IMAGE", "LIST"].map(type =>
+                                                           <option key={type}
+                                                                   value={type}>{type[0] +
+                                                                                 type.substr(1,
+                                                                                             type.length)
+                                                                                     .toLowerCase()}</option>
                 )}
             </select>
             <br/>
-            <label>Text:
+            <label>
                 {newWidget.type === 'HEADING' &&
-                 <>
+                 <>Text:
                      <input className={classes.newWidget} value={newWidget.text}
-                            onChange={handleNewWidgetChange}/>
+                            onChange={e => handleWidgetValueChange(e,'text')}/>
                      <br/>
                      <select className={classes.root}
                              onChange={handleSizeChange}
@@ -60,8 +63,30 @@ export const NewWidget = ({createWidgetForTopic}) => {
                  </>
                 }
                 {newWidget.type === 'PARAGRAPH' &&
-                 <textarea className={classes.newWidget} defaultValue={newWidget.text}
-                           onChange={handleTextAreaChange}/>
+                 <>Content:
+                     <textarea className={classes.newWidget} defaultValue={newWidget.text}
+                               onChange={e => handleWidgetValueChange(e,'text')}/>
+                 </>
+                }
+                {newWidget.type === 'LIST' &&
+                 <>
+                     <input
+                         type="checkbox"
+                         id="isOrdered"
+                         name="isOrdered"
+                         value={newWidget.ordered}
+                         onChange={handleOrderedChange}/>
+                     <label htmlFor="isOrdered"> Ordered </label><br/>
+
+                     <textarea className={classes.newWidget} defaultValue={newWidget.text}
+                               onChange={e => handleWidgetValueChange(e,'text')}/>
+                 </>
+                }
+                {newWidget.type === 'IMAGE' &&
+                 <>Image Src:
+                     <input className={classes.newWidget} defaultValue={newWidget.text}
+                            onChange={e => handleWidgetValueChange(e,'src')}/>
+                 </>
                 }
             </label>
             <FaPlus onClick={() => {

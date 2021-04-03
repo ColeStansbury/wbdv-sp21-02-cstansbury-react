@@ -3,6 +3,12 @@ const COURSES_URL = "https://wbdv-generic-server.herokuapp.com/api/cstansbury/co
 export const findAllCourses = () =>
     fetch(COURSES_URL)
         .then(response => response.json())
+        .catch(() => ({
+            _id: '1234',
+            title: 'temporary course (server is down)',
+            owner: 'temp owner',
+            lastModified: '99/99/9999',
+        }))
 
 export const findCourseById = (id) =>
     fetch(`${COURSES_URL}/${id}`)

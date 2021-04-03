@@ -6,6 +6,8 @@ import * as widgetService from "../../../services/widget-service";
 import {FaCheck, FaCog, FaTrash} from "react-icons/fa";
 import {connect} from "react-redux";
 import {NewWidget} from "./new-widget";
+import ImageWidget from "./image-widget";
+import ListWidget from "./list-widget";
 
 const WidgetList = ({
                         findWidgetsForTopic,
@@ -23,91 +25,113 @@ const WidgetList = ({
         }
     }, [findWidgetsForTopic, topicId]);
 
-    return (
-        <>
-            {topicId &&
-             <>
-                 <br/>
-                 <br/>
-                 <NewWidget createWidgetForTopic={createWidgetForTopic}/>
-                 {widgets.length !== 0 && <h2>Widget List</h2>}
-                 <div>
-                     {
-                         widgets.map(widget =>
-                                         <div key={widget.id}>
-                                             {
-                                                 editingWidget.id === widget.id &&
-                                                 <>
-                                                     <FaCheck onClick={() => {
-                                                         updateWidget(widget.id, editingWidget)
-                                                         setEditingWidget({});
-                                                     }}/>
-                                                     <FaTrash onClick={() => deleteWidget(
-                                                         widget.id)}/>
-                                                 </>
-                                             }
-                                             {
-                                                 editingWidget.id !== widget.id &&
-                                                 <FaCog onClick={() => setEditingWidget(widget)}/>
-                                             }
-                                             {
-                                                 editingWidget.id === widget.id && <>
-                                                     <select
-                                                         onChange={(e) =>
-                                                             setEditingWidget(
-                                                                 {
-                                                                     ...widget,
-                                                                     type: e.target.options[e.target.selectedIndex].value
-                                                                 }
-                                                             )
-                                                         }
-                                                         defaultValue={widget.type}>
-                                                         {["PARAGRAPH", "HEADING"]
-                                                             .map(type =>
-                                                                      <option
-                                                                          key={type}
-                                                                          value={type}>{type[0]
-                                                                                        + type.substr(
-                                                                          1,
-                                                                          type.length)
-                                                                                            .toLowerCase()}
-                                                                      </option>
-                                                             )}
-                                                     </select>
-                                                     <br/>
-                                                 </>
-                                             }
-                                             {(widget.type === "HEADING" &&
-                                               !(editingWidget.id === widget.id
-                                                 && editingWidget.type === 'PARAGRAPH') ||
-                                               (editingWidget.type === 'HEADING' && widget.id
-                                                === editingWidget.id)) &&
-                                              <HeadingWidget
-                                                  changeEditingWidget={setEditingWidget}
-                                                  editing={editingWidget.id === widget.id}
-                                                  widget={widget.id === editingWidget.id
-                                                          ? editingWidget : widget}/>
-                                             }
-                                             {
-                                                 (widget.type === "PARAGRAPH" &&
-                                                  !(editingWidget.id === widget.id
-                                                    && editingWidget.type === 'HEADING') ||
-                                                  (editingWidget.type === 'PARAGRAPH' && widget.id
-                                                   === editingWidget.id)) &&
-                                                 <ParagraphWidget
-                                                     changeEditingWidget={setEditingWidget}
-                                                     editing={editingWidget.id === widget.id}
-                                                     widget={widget.id === editingWidget.id
-                                                             ? editingWidget : widget}/>
-                                             }
-                                         </div>
-                         )
-                     }
-                 </div>
-             </>
-            }
-        </>
-    );
+    return <>
+        {topicId &&
+         <>
+             <br/>
+             <br/>
+             <NewWidget createWidgetForTopic={createWidgetForTopic}/>
+             {widgets.length !== 0 && <h2>Widget List</h2>}
+             <div>
+                 {
+                     widgets.map(widget =>
+                                     <div key={widget.id}>
+                                         {
+                                             editingWidget.id === widget.id &&
+                                             <>
+                                                 <FaCheck onClick={() => {
+                                                     updateWidget(widget.id, editingWidget)
+                                                     setEditingWidget({});
+                                                 }}/>
+                                                 <FaTrash onClick={() => deleteWidget(
+                                                     widget.id)}/>
+                                             </>
+                                         }
+                                         {
+                                             editingWidget.id !== widget.id &&
+                                             <FaCog onClick={() => setEditingWidget(widget)}/>
+                                         }
+                                         {
+                                             editingWidget.id === widget.id && <>
+                                                 <select
+                                                     onChange={(e) =>
+                                                         setEditingWidget(
+                                                             {
+                                                                 ...widget,
+                                                                 type: e.target.options[e.target.selectedIndex].value
+                                                             }
+                                                         )
+                                                     }
+                                                     defaultValue={widget.type}>
+                                                     {["PARAGRAPH", "HEADING", "LIST", "IMAGE"]
+                                                         .map(type =>
+                                                                  <option
+                                                                      key={type}
+                                                                      value={type}>{type[0]
+                                                                                    + type.substr(
+                                                                      1,
+                                                                      type.length)
+                                                                                        .toLowerCase()}
+                                                                  </option>
+                                                         )}
+                                                 </select>
+                                                 <br/>
+                                             </>
+                                         }
+                                         {(widget.type === "HEADING" &&
+                                           !(editingWidget.id === widget.id
+                                             && editingWidget.type !== 'HEADING') ||
+                                           editingWidget.type === 'HEADING' && widget.id
+                                           === editingWidget.id) &&
+                                          <HeadingWidget
+                                              changeEditingWidget={setEditingWidget}
+                                              editing={editingWidget.id === widget.id}
+                                              widget={widget.id === editingWidget.id
+                                                      ? editingWidget : widget}/>
+                                         }
+                                         {
+                                             (widget.type === "PARAGRAPH" &&
+                                              !(editingWidget.id === widget.id
+                                                && editingWidget.type !== 'PARAGRAPH') ||
+                                              editingWidget.type === 'PARAGRAPH' && widget.id
+                                              === editingWidget.id) &&
+                                             <ParagraphWidget
+                                                 changeEditingWidget={setEditingWidget}
+                                                 editing={editingWidget.id === widget.id}
+                                                 widget={widget.id === editingWidget.id
+                                                         ? editingWidget : widget}/>
+                                         }
+                                         {
+                                             (widget.type === "LIST" &&
+                                              !(editingWidget.id === widget.id
+                                                && editingWidget.type !== 'LIST') ||
+                                              editingWidget.type === 'LIST' && widget.id
+                                              === editingWidget.id) &&
+                                             <ListWidget
+                                                 changeEditingWidget={setEditingWidget}
+                                                 editing={editingWidget.id === widget.id}
+                                                 widget={widget.id === editingWidget.id
+                                                         ? editingWidget : widget}/>
+                                         }
+                                         {
+                                             (widget.type === "IMAGE" &&
+                                              !(editingWidget.id === widget.id
+                                                && editingWidget.type !== 'IMAGE') ||
+                                              editingWidget.type === 'IMAGE' && widget.id
+                                              === editingWidget.id) &&
+                                             <ImageWidget
+                                                 changeEditingWidget={setEditingWidget}
+                                                 editing={editingWidget.id === widget.id}
+                                                 widget={widget.id === editingWidget.id
+                                                         ? editingWidget : widget}/>
+                                         }
+                                     </div>
+                     )
+                 }
+             </div>
+         </>
+        }
+    </>;
 };
 const stpm = (state) => (
     {
