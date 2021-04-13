@@ -2,15 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="653b1d2e-60fb-4048-81ec-dd44dd5cd044" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/quizzes/questions/multiple-choice-question.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/quizzes/questions/question.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/quizzes/questions/true-false-question.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/quizzes/quiz.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/quizzes/quizzes-list.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/services/questions-service.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/services/quiz-service.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/course-table/course-row.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/course-table/course-row.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/home.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/quizzes/quiz.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/quizzes/quiz.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/quizzes/quizzes-list.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/quizzes/quizzes-list.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,6 +46,17 @@
     </key>
   </component>
   <component name="RunManager">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="start" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
@@ -87,6 +94,7 @@
       <workItem from="1617376061008" duration="8629000" />
       <workItem from="1618173858617" duration="5288000" />
       <workItem from="1618257189068" duration="3742000" />
+      <workItem from="1618282864334" duration="439000" />
     </task>
     <servers />
   </component>
