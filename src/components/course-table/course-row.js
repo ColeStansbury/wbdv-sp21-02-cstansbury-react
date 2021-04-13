@@ -32,9 +32,15 @@ const CourseRow = ({updateRow, deleteRow, row, columns, useStyles}) => {
                                  {
                                      (!editing || column.readonly) &&
                                      <>{column.link ?
-                                        <Link to={`${column.link}/${row._id}`}>
-                                            {newValues[column.id]}
-                                        </Link> : newValues[column.id]
+                                        <>
+                                            <Link to={`${column.link}/${row._id}`}>
+                                                {newValues[column.id]}
+                                            </Link>
+                                            <Link style={{float: 'right'}} to={`${row._id}/quizzes`}>
+                                                Quizzes
+                                            </Link>
+                                        </>
+                                                    : newValues[column.id]
                                      }</>
                                  }
                                  {
@@ -64,7 +70,8 @@ const CourseRow = ({updateRow, deleteRow, row, columns, useStyles}) => {
                 </IconButton>}
             </TableCell>
         </TableRow>)
-}
+};
+
 export default CourseRow
 
 

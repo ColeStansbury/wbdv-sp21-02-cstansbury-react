@@ -1,5 +1,7 @@
 import React from 'react'
-import {Link} from "react-router-dom";
+import {Link, Route} from "react-router-dom";
+import QuizzesList from './quizzes/quizzes-list';
+import Quiz from './quizzes/quiz';
 
 export default () =>
     <>
