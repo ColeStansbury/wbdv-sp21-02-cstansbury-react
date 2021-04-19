@@ -3,9 +3,7 @@ import {FaCheck} from 'react-icons/fa';
 import {FaTimes} from 'react-icons/all';
 import {Button} from '@material-ui/core';
 
-const MultipleChoiceQuestion = ({question}) => {
-    const [yourAnswer, setYourAnswer] = useState("")
-    const [grading, setGrading] = useState(false)
+const MultipleChoiceQuestion = ({question, setQuestion, grading}) => {
     const check = <FaCheck style={{color: 'green'}}/>
     const times = <FaTimes style={{color: 'red'}}/>
     return (
@@ -13,27 +11,27 @@ const MultipleChoiceQuestion = ({question}) => {
             <h5 style={{display: 'inline', marginRight: '10px'}}> {question.question} </h5>
             {grading &&
              <>
-                 {question.correct.toUpperCase() === yourAnswer.toUpperCase() && check}
-                 {question.correct.toUpperCase() !== yourAnswer.toUpperCase() && times}
+                 {question.correct.toUpperCase() === question.answer?.toUpperCase() && check}
+                 {question.correct.toUpperCase() !== question.answer?.toUpperCase() && times}
              </>
             }
             <ul style={{listStyle: 'none'}} className="list-group">
                 {
                     question.choices.map((choice) => {
                         return (
-                            <li style={grading ? {
+                            <li key={choice} style={grading ? {
                                 width: '30%',
                                 backgroundColor: `
-                            ${grading && choice === yourAnswer ?
-                              yourAnswer.toUpperCase() !== question.correct.toUpperCase()
-                              ? '#ffbcb5' : 'rgb(167 219 167)' : choice === question.correct
+                            ${grading && choice.toUpperCase() === question.answer?.toUpperCase() ?
+                              question.answer?.toUpperCase() !== question.correct.toUpperCase()
+                              ? '#ffbcb5' : 'rgb(167 219 167)' : choice.toUpperCase() === question.correct.toUpperCase()
                                                                  ? 'rgb(167 219 167)' : ''
                                 }`
                             } : {}}
                             >
                                 <label><input
                                     onClick={() => {
-                                        setYourAnswer(choice)
+                                        setQuestion({...question, answer: choice})
                                     }}
                                     type="radio"
                                     name={question._id}/> {choice}</label>
@@ -41,8 +39,8 @@ const MultipleChoiceQuestion = ({question}) => {
                                  <>
                                      {choice.toUpperCase() === question.correct.toUpperCase()
                                       && check}
-                                     {choice.toUpperCase() === yourAnswer.toUpperCase()
-                                      && yourAnswer.toUpperCase() !== question.correct.toUpperCase()
+                                     {choice.toUpperCase() === question.answer?.toUpperCase()
+                                      && question.answer?.toUpperCase() !== question.correct.toUpperCase()
                                       && times}
                                  </>
                                 }
@@ -54,13 +52,11 @@ const MultipleChoiceQuestion = ({question}) => {
             {grading &&
              <>
                  <p>
-                     Your answer: {yourAnswer}
+                     Your answer: {question.answer}
                  </p>
                  <p>Correct answer: {question.correct}</p>
              </>
             }
-            <Button variant='contained' color='primary'
-                    onClick={() => setGrading(!grading)}>{grading ? 'Hide' : 'Grade'}</Button>
         </div>
     )
 }
