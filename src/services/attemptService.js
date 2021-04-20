@@ -11,5 +11,5 @@ const createAttempt = (qid, attempt) => fetch(`${ATTEMPTS_URL}/${qid}/attempts`,
                                                       'content-type': 'application/json'
                                                   }
                                               }
-)
+).then(res => res.json())
 export default {findAttemptsForQuiz, createAttempt}

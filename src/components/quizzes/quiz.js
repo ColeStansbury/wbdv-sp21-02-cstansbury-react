@@ -9,11 +9,14 @@ const Quiz = () => {
     const [grading, setGrading] = useState(false)
     const {quizId} = useParams()
     const [questions, setQuestions] = useState([])
+    const [score, setScore] = useState();
     useEffect(async () => setQuestions(await questionService.findQuestionsForQuiz(quizId)), [])
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         if (!grading) {
-            attemptService.createAttempt(quizId, questions);
+            attemptService.createAttempt(quizId, questions).then(res => setScore(res.score));
+        } else{
+            setScore(undefined);
         }
         setGrading(!grading)
     };
@@ -39,6 +42,7 @@ const Quiz = () => {
 
             <Button variant='contained' color='primary'
                     onClick={handleSubmit}>{grading ? 'Retry' : 'Submit'}</Button>
+            {score !== undefined && <h3>Score: {score}</h3>}
         </div>
     )
 }
